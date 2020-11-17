@@ -10,6 +10,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASD_UserManager", "ASD_User
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{319B8E3A-27C0-44DD-8C6E-41C4BA724C1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{3CF37E89-B061-40AE-B178-EA42FEEE2529}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|anycpu = Debug|anycpu
@@ -32,6 +34,10 @@ Global
 		{319B8E3A-27C0-44DD-8C6E-41C4BA724C1E}.Debug|anycpu.Build.0 = Debug|Any CPU
 		{319B8E3A-27C0-44DD-8C6E-41C4BA724C1E}.Release|anycpu.ActiveCfg = Release|Any CPU
 		{319B8E3A-27C0-44DD-8C6E-41C4BA724C1E}.Release|anycpu.Build.0 = Release|Any CPU
+		{3CF37E89-B061-40AE-B178-EA42FEEE2529}.Debug|anycpu.ActiveCfg = Debug|Any CPU
+		{3CF37E89-B061-40AE-B178-EA42FEEE2529}.Debug|anycpu.Build.0 = Debug|Any CPU
+		{3CF37E89-B061-40AE-B178-EA42FEEE2529}.Release|anycpu.ActiveCfg = Release|Any CPU
+		{3CF37E89-B061-40AE-B178-EA42FEEE2529}.Release|anycpu.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

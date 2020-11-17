@@ -4,6 +4,8 @@ namespace Domain
 {
     public class Account
     {
+        public readonly Guid id;
+
         public readonly string UserName;
 
         string Password;
