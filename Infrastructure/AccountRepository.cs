@@ -1,7 +1,7 @@
 ﻿using System;
 using Domain;
-using Interfaces;
 using System.Linq;
+using Application.Contract;
 
 namespace Infrastructure
 {

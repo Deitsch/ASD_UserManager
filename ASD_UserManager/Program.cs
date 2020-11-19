@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Data.Sqlite;
 
 namespace ASD_UserManager
 {

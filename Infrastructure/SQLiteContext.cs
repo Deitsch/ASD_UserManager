@@ -10,10 +10,5 @@ namespace Infrastructure
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite("Data Source=userDataManager.db");
-
-        //public SQLiteContext(DbContextOptions<SQLiteContext> options) : base(options)
-        //{
-        //    this.Database.EnsureCreated();
-        //}
     }
 }
