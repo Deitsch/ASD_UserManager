@@ -8,9 +8,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASD_UserManager", "ASD_UserManager\ASD_UserManager.csproj", "{8FD01509-0C9F-4821-AC83-1466C3663364}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{319B8E3A-27C0-44DD-8C6E-41C4BA724C1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{319B8E3A-27C0-44DD-8C6E-41C4BA724C1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\Interfaces.csproj", "{3CF37E89-B061-40AE-B178-EA42FEEE2529}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application.Contract", "Interfaces\Application.Contract.csproj", "{3CF37E89-B061-40AE-B178-EA42FEEE2529}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

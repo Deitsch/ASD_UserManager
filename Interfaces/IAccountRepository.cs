@@ -1,7 +1,7 @@
 ﻿using System;
 using Domain;
 
-namespace Interfaces
+namespace Application.Contract
 {
     public interface IAccountRepository: IRepo<Account>
     {

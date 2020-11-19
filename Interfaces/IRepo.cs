@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Interfaces
+namespace Application.Contract
 {
     public interface IRepo<T>
     {
