@@ -1,18 +1,21 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain
 {
     public class Account
     {
-        public readonly Guid id;
+        public Guid Id;
 
-        public readonly string UserName;
+        public string UserName;
 
         string Password;
 
-        public readonly string FirstName;
+        public string FirstName;
 
-        public readonly string LastName;
+        public string LastName;
+
+        public Account() { } 
 
         public Account(string userName, string password, string firstName, string lastName)
         {

@@ -23,14 +23,14 @@ namespace Infrastructure
 
         public void Delete(Guid id)
         {
-            Account account = context.Accounts.First(a => a.id == id);
+            Account account = context.Accounts.First(a => a.Id == id);
             context.Accounts.Remove(account);
             context.SaveChanges();
         }
 
         public Account Read(Guid id)
         {
-            return context.Accounts.First(a => a.id == id);
+            return context.Accounts.First(a => a.Id == id);
         }
 
         public Account Read(string username)

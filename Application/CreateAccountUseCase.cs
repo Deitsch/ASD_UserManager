@@ -1,4 +1,5 @@
 ﻿using Application.Contract;
+using Domain;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,10 +19,28 @@ namespace Application
         public readonly string Username;
 
         public readonly string Password;
+
+        public readonly string PasswordRepeated;
+
+        public CreateAccountUseCaseRequest(string firstName, string lastName, string username, string password, string passwordRepeated)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Username = username;
+            Password = password;
+            PasswordRepeated = passwordRepeated;
+        }
     }
 
     public struct CreateAccountUseCaseResponse
-    { }
+    {
+        public readonly string Message;
+
+        public CreateAccountUseCaseResponse(string message)
+        {
+            Message = message;
+        }
+    }
 
     public class CreateAccountUseCase : ICreateAccountUseCase
     {
@@ -32,9 +51,23 @@ namespace Application
             this.accountRepository = accountRepository;
         }
 
-        public Task<CreateAccountUseCaseResponse> Execute(CreateAccountUseCaseRequest request)
+        public CreateAccountUseCaseResponse Execute(CreateAccountUseCaseRequest request)
         {
-            throw new NotImplementedException();
+            string message;
+            if (request.Password != request.PasswordRepeated)
+            {
+                message = "Passwords are not matching";
+            }
+            else
+            {
+                var account = new Account(request.Username, request.Username, request.FirstName, request.LastName);
+                accountRepository.Create(account);
+                message = "Successfully created Account";
+            }
+
+            return new CreateAccountUseCaseResponse(message);
         }
     }
+
+    public class UsernameMismatchException: Exception { }
 }

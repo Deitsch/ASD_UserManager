@@ -18,6 +18,6 @@ namespace Application
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<TResponse> Execute(TRequest request);
+        TResponse Execute(TRequest request);
     }
 }

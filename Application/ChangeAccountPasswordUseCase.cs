@@ -17,7 +17,7 @@ namespace Application
 
     public class ChangeAccountPasswordUseCase : IChangeAccountPasswordUseCase
     {
-        public Task<ChangeAccountPasswordResponse> Execute(ChangeAccountPasswordRequest request)
+        public ChangeAccountPasswordResponse Execute(ChangeAccountPasswordRequest request)
         {
             throw new NotImplementedException();
         }
