@@ -1,4 +1,5 @@
 ﻿using Application.Contract;
+using Application.Extensions;
 using Domain;
 using System;
 using System.Collections.Generic;
@@ -7,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace Application
 {
-    public interface ICreateAccountUseCase : IUseCase<CreateAccountUseCaseRequest, CreateAccountUseCaseResponse>
+    public interface ICreateAccountUseCase : IUseCase<CreateAccountRequest, CreateAccountResponse>
     { }
 
-    public struct CreateAccountUseCaseRequest
+    public struct CreateAccountRequest
     {
         public readonly string FirstName;
 
@@ -20,27 +21,20 @@ namespace Application
 
         public readonly string Password;
 
-        public readonly string PasswordRepeated;
+        public readonly string RepeatedPassword;
 
-        public CreateAccountUseCaseRequest(string firstName, string lastName, string username, string password, string passwordRepeated)
+        public CreateAccountRequest(string firstName, string lastName, string username, string password, string repeatedPassword)
         {
             FirstName = firstName;
             LastName = lastName;
             Username = username;
             Password = password;
-            PasswordRepeated = passwordRepeated;
+            RepeatedPassword = repeatedPassword;
         }
     }
 
-    public struct CreateAccountUseCaseResponse
-    {
-        public readonly string Message;
-
-        public CreateAccountUseCaseResponse(string message)
-        {
-            Message = message;
-        }
-    }
+    public struct CreateAccountResponse
+    { }
 
     public class CreateAccountUseCase : ICreateAccountUseCase
     {
@@ -51,23 +45,11 @@ namespace Application
             this.accountRepository = accountRepository;
         }
 
-        public CreateAccountUseCaseResponse Execute(CreateAccountUseCaseRequest request)
+        public CreateAccountResponse Execute(CreateAccountRequest request)
         {
-            string message;
-            if (request.Password != request.PasswordRepeated)
-            {
-                message = "Passwords are not matching";
-            }
-            else
-            {
-                var account = new Account(request.Username, request.Username, request.FirstName, request.LastName);
-                accountRepository.Create(account);
-                message = "Successfully created Account";
-            }
-
-            return new CreateAccountUseCaseResponse(message);
+            var account = Account.Create(request.toNewAccount());
+            accountRepository.Create(account);
+            return new CreateAccountResponse();
         }
     }
-
-    public class UsernameMismatchException: Exception { }
 }

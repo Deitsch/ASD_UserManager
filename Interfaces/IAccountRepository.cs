@@ -5,6 +5,6 @@ namespace Application.Contract
 {
     public interface IAccountRepository: IRepo<Account>
     {
-        Account Read(String username);
+        Account Read(string username);
     }
 }

@@ -56,7 +56,7 @@ namespace ASD_UserManager
             Console.Write("Lastname: ");
             String lastName = Console.ReadLine();
 
-            var req = new CreateAccountUseCaseRequest(firstName, lastName, username, password, passwordRepeat);
+            var req = new CreateAccountRequest(firstName, lastName, username, password, passwordRepeat);
             var resp = createAccountUC.Execute(req);
             Console.WriteLine(resp.Message);
             MainMenu();
