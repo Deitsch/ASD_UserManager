@@ -56,14 +56,14 @@ namespace Application
         public LoginResponse Execute(LoginRequest request)
         {
             if (loginCounter == 3)
-                throw new InvalidOperationException("Too much login trys!");
+                throw new InvalidOperationException("Too much login tries!");
 
             var account = accountRepository.Read(request.UserName);
             if (account == null)
                 throw new ResourceNotExistingException("Username or password is wrong!");
 
             loginCounter++;
-            account.Login(request.Password);
+            account.Login(PasswordHasher.Hash(request.Password));
             accountRepository.Update(account);
             loginCounter = 0;
             return new LoginResponse(account.toAccountInfo());
