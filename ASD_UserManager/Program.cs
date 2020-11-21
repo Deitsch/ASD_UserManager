@@ -1,6 +1,10 @@
 ﻿using System;
 using Application;
 using Application.Contract;
+using Application.Exceptions;
+using ASD_UserManager.Extensions;
+using ASD_UserManager.ViewModels;
+using Domain.Exceptions;
 using Infrastructure;
 using Microsoft.Data.Sqlite;
 
@@ -8,66 +12,103 @@ namespace ASD_UserManager
 {
     class Program
     {
+        static IAccountRepository accountRepository;
+
         static ICreateAccountUseCase createAccountUC;
-        static IAccountRepository accountRepo;
+        static ILoginUseCase loginUC;
+
+        static LoggedInContext loggedInContext;
 
         static void Main(string[] args)
         {
             Init();
-            MainMenu();
+            DisplayMainMenu();
         }
 
         static void Init()
         {
             var context = new SQLiteContext();
-            accountRepo = new AccountRepository(context);
-            createAccountUC = new CreateAccountUseCase(accountRepo);
+            //context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            accountRepository = new AccountRepository(context);
+            createAccountUC = new CreateAccountUseCase(accountRepository);
+            loginUC = new LoginUseCase(accountRepository);
         }
 
-        static void MainMenu()
+        static void DisplayMainMenu()
         {
+            Console.WriteLine();
             Console.WriteLine("Options: \n1. Login\n2. Register");
             Console.Write(":");
             int decision = Convert.ToInt32(Console.ReadLine());
-            switch (decision) {
+            HandleSelection(decision);
+        }
+
+        static void HandleSelection(int decision)
+        {
+            switch (decision)
+            {
                 case 1:
-                    Login();
+                    ExecuteOption(Login);
                     break;
                 case 2:
-                    Register();
+                    ExecuteOption(RegisterAccount);
                     break;
                 default:
-                    Console.WriteLine("Invalid input");
-                    MainMenu();
+                    Console.WriteLine("Invalid input!");
+                    DisplayMainMenu();
                     break;
             }
         }
 
-        static void Register()
+        //Todo: Move to MenuExecutionHandler
+        static void ExecuteOption(Action option)
         {
-            Console.Write("Username: ");
-            String username = Console.ReadLine();
-            Console.Write("Password: ");
-            String password = Console.ReadLine();
-            Console.Write("Repeat Password: ");
-            String passwordRepeat = Console.ReadLine();
-            Console.Write("Firstname: ");
-            String firstName = Console.ReadLine();
-            Console.Write("Lastname: ");
-            String lastName = Console.ReadLine();
-
-            var req = new CreateAccountRequest(firstName, lastName, username, password, passwordRepeat);
-            var resp = createAccountUC.Execute(req);
-            Console.WriteLine(resp.Message);
-            MainMenu();
+            try
+            {
+                option.Invoke();
+            }
+            //TODO: refactor
+            catch (Exception exception) when (exception is DomainException || exception is AppException)
+            {
+                Console.WriteLine(exception.Message);
+            }
+            DisplayMainMenu();
         }
 
         static void Login()
         {
             Console.Write("Username: ");
-            String username = Console.ReadLine();
+            string username = Console.ReadLine();
             Console.Write("Password: ");
-            String password = Console.ReadLine();
+            string password = Console.ReadLine();
+            var request = new LoginRequest(username, password);
+            var response = loginUC.Execute(request);
+            ForwardToLoginContext(response.toAccountInfoViewModel());
+        }
+
+        static void ForwardToLoginContext(AccountInfo accountInfo)
+        {
+            loggedInContext = new LoggedInContext(accountRepository, accountInfo);
+            loggedInContext.DisplayMainMenu();
+        }
+
+        static void RegisterAccount()
+        {
+            Console.Write("Username: ");
+            string username = Console.ReadLine();
+            Console.Write("Password: ");
+            string password = Console.ReadLine();
+            Console.Write("Repeat Password: ");
+            string passwordRepeat = Console.ReadLine();
+            Console.Write("Firstname: ");
+            string firstName = Console.ReadLine();
+            Console.Write("Lastname: ");
+            string lastName = Console.ReadLine();
+
+            var req = new CreateAccountRequest(firstName, lastName, username, password, passwordRepeat);
+            createAccountUC.Execute(req);
+            Console.WriteLine("Account created!");
         }
     }
 }

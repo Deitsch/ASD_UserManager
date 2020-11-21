@@ -35,7 +35,8 @@ namespace Infrastructure
 
         public Account Read(string username)
         {
-            return context.Accounts.First(a => a.UserName == username);
+            var accounts = context.Accounts.ToList();
+            return context.Accounts.AsEnumerable().FirstOrDefault(a => a.UserName == username);
         }
 
         public void Update(Account item)

@@ -6,33 +6,38 @@ using System.Threading.Tasks;
 
 namespace Application
 {
-    public interface ILogoutUseCase : IUseCase<LogOutRequest, LogOutResponse>
+    public interface ILogoutUseCase : IUseCase<LogoutRequest, LogoutResponse>
     {
     }
 
-    public struct LogOutRequest
+    public struct LogoutRequest
     {
         public readonly string UserName;
 
-        public LogOutRequest(string userName)
+        public LogoutRequest(string userName)
         {
             UserName = userName;
         }
     }
 
-    public struct LogOutResponse
+    public struct LogoutResponse
     { }
 
-    public class LogOutUseCase : IUseCase<LogOutRequest, LogOutResponse>
+    public class LogoutUseCase : ILogoutUseCase
     {
         readonly IAccountRepository accountRepository;
 
-        public LogOutResponse Execute(LogOutRequest request)
+        public LogoutUseCase(IAccountRepository accountRepository)
+        {
+            this.accountRepository = accountRepository;
+        }
+
+        public LogoutResponse Execute(LogoutRequest request)
         {
             var account = accountRepository.Read(request.UserName);
             account.LogOut();
             accountRepository.Update(account);
-            return new LogOutResponse();
+            return new LogoutResponse();
         }
     }
 }

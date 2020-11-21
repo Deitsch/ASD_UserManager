@@ -1,4 +1,5 @@
 ﻿using Application.Contract;
+using Application.Exceptions;
 using Application.Extensions;
 using Domain;
 using System;
@@ -34,7 +35,9 @@ namespace Application
     }
 
     public struct CreateAccountResponse
-    { }
+    {
+        
+    }
 
     public class CreateAccountUseCase : ICreateAccountUseCase
     {
@@ -47,6 +50,11 @@ namespace Application
 
         public CreateAccountResponse Execute(CreateAccountRequest request)
         {
+            var existingAccount = accountRepository.Read(request.Username);
+
+            if (existingAccount != null)
+                throw new ResourceAlreadyExistingException($"There is already existing an account with the username: {request.Username}!");
+
             var account = Account.Create(request.toNewAccount());
             accountRepository.Create(account);
             return new CreateAccountResponse();

@@ -18,14 +18,21 @@ namespace Domain
 
         bool IsUserLoggedIn;
 
-        public Account() { } 
+        internal Account(Guid id, string userName, string password, string firstName, string lastName, bool isUserLoggedIn)
+        {
+            Id = id;
+            UserName = userName;
+            Password = password;
+            FirstName = firstName;
+            LastName = lastName;
+            IsUserLoggedIn = isUserLoggedIn;
+        }
 
         public static Account Create(NewAccount newAccount)
         {
             if(newAccount.Password != newAccount.RepeatedPassword)
-            {
                 throw new PasswordException("Passwords are not matching!");
-            }
+
             return new Account(Guid.NewGuid(), newAccount);
         }
         
@@ -41,7 +48,7 @@ namespace Domain
 
         public void ChangePassword(NewPassword newPassword)
         {
-            if (newPassword.Password == newPassword.RepeatedPassword)
+            if (newPassword.Password != newPassword.RepeatedPassword)
                 throw new PasswordException("Password is not matching");
 
             if (newPassword.Password == Password)
@@ -54,7 +61,7 @@ namespace Domain
         {
             if (password != Password)
             {
-                throw new PasswordException("Password is wrong!");
+                throw new PasswordException("Username or Password is wrong!");
             }
 
             IsUserLoggedIn = true;
