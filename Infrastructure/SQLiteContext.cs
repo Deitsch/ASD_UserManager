@@ -5,18 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class SQLiteContext : DbContext 
+    public class SQLiteContext : DbContext
     {
         public DbSet<Account> Accounts { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseSqlite("Filename=TestDatabase.db", options =>
-            {
-                options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
-            });
-            base.OnConfiguring(options);
-        }
+        public SQLiteContext(DbContextOptions<SQLiteContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

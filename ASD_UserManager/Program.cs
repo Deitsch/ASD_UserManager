@@ -7,6 +7,7 @@ using ASD_UserManager.ViewModels;
 using Domain.Exceptions;
 using Infrastructure;
 using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASD_UserManager
 {
@@ -32,7 +33,8 @@ namespace ASD_UserManager
 
         static void Init()
         {
-            var context = new SQLiteContext();
+            var options = new DbContextOptionsBuilder<SQLiteContext>().UseSqlite("Filename=Database.db").Options;
+            var context = new SQLiteContext(options);
             //context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
             accountRepository = new AccountRepository(context);
