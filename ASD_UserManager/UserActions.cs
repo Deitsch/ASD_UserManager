@@ -5,6 +5,9 @@ namespace ASD_UserManager
     {
         Login = 1,
         Register,
+        Exit,
+
+        PrintInfo,
         ChangePW,
         Logout,
         DeleteAccount

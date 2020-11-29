@@ -28,6 +28,13 @@ namespace Infrastructure
             context.SaveChanges();
         }
 
+        public void Delete(string username)
+        {
+            Account account = context.Accounts.First(a => a.UserName == username);
+            context.Accounts.Remove(account);
+            context.SaveChanges();
+        }
+
         public Account Read(Guid id)
         {
             return context.Accounts.First(a => a.Id == id);

@@ -39,7 +39,10 @@ namespace ASD_UserManager
         static void DisplayMainMenu()
         {
             Console.WriteLine();
-            Console.WriteLine("Options: \n" + (int)UserActions.Login + ". Login\n" + (int)UserActions.Register + ". Register");
+            Console.WriteLine("Options: \n"
+                + (int)UserActions.Login + ". Login\n"
+                + (int)UserActions.Register + ". Register\n"
+                + (int)UserActions.Exit + ". Exit");
             Console.Write(":");
             int decision = Convert.ToInt32(Console.ReadLine());
             HandleSelection(decision);
@@ -54,6 +57,10 @@ namespace ASD_UserManager
                     break;
                 case (int)UserActions.Register:
                     ExecuteOption(RegisterAccount);
+                    break;
+                case (int)UserActions.Exit:
+                    Console.WriteLine("Cya");
+                    Environment.Exit(0);
                     break;
                 default:
                     Console.WriteLine("Invalid input!");

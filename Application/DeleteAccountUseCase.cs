@@ -12,11 +12,11 @@ namespace Application
 
     public struct DeleteAccountRequest
     {
-        public readonly Guid AccountId;
+        public readonly string UserName;
 
-        public DeleteAccountRequest(Guid accountId)
+        public DeleteAccountRequest(string userName)
         {
-            AccountId = accountId;
+            UserName = userName;
         }
     }
 
@@ -34,7 +34,7 @@ namespace Application
 
         public DeleteAccountResponse Execute(DeleteAccountRequest request)
         {
-            accountRepository.Delete(request.AccountId);
+            accountRepository.Delete(request.UserName);
             return new DeleteAccountResponse();
         }
     }

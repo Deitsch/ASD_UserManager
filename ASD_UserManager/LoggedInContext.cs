@@ -36,7 +36,12 @@ namespace ASD_UserManager
  
         public void DisplayMainMenu()
         {
-            Console.WriteLine("Options: \n" + (int)UserActions.ChangePW + ". Change Password \n" + (int)UserActions.Logout + ". Logout \n" + (int)UserActions.DeleteAccount + ". Delete Account");
+            Console.WriteLine("Options: \n"
+                + (int)UserActions.PrintInfo + ". Print Info\n"
+                + (int)UserActions.ChangePW + ". Change Password \n"
+                + (int)UserActions.Logout + ". Logout \n"
+                + (int)UserActions.DeleteAccount + ". Delete Account");
+
             Console.Write(":");
             int decision = Convert.ToInt32(Console.ReadLine());
             HandleSelection(decision);
@@ -46,6 +51,12 @@ namespace ASD_UserManager
         {
             switch (decision)
             {
+                case (int)UserActions.PrintInfo:
+                    Console.WriteLine($"Username: {accountInfo.UserName}");
+                    Console.WriteLine($"Firstname: {accountInfo.FirstName}");
+                    Console.WriteLine($"Lastname: {accountInfo.LastName}");
+                    DisplayMainMenu();
+                    break;
                 case (int)UserActions.ChangePW:
                     ExecuteOption(ChangePassword);
                     DisplayMainMenu();
@@ -89,12 +100,12 @@ namespace ASD_UserManager
 
         void DeleteAccount()
         {
-            Console.WriteLine("Are you sure about deleting your account? (Y/N)");
+            Console.WriteLine("Are you sure about deleting your account? (Y/n)");
             string answer = Console.ReadLine();
             if (answer != "Y")
                 return;
 
-            var request = new DeleteAccountRequest(new Guid(accountInfo.UserName));
+            var request = new DeleteAccountRequest(accountInfo.UserName);
             deleteAccountUC.Execute(request);
         }
 
