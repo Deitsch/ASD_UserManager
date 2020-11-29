@@ -36,7 +36,7 @@ namespace ASD_UserManager
  
         public void DisplayMainMenu()
         {
-            Console.WriteLine("Options: \n1. Change Password \n2. Logout \n3. Delete Account");
+            Console.WriteLine("Options: \n" + (int)UserActions.ChangePW + ". Change Password \n" + (int)UserActions.Logout + ". Logout \n" + (int)UserActions.DeleteAccount + ". Delete Account");
             Console.Write(":");
             int decision = Convert.ToInt32(Console.ReadLine());
             HandleSelection(decision);
@@ -46,14 +46,14 @@ namespace ASD_UserManager
         {
             switch (decision)
             {
-                case 1:
+                case (int)UserActions.ChangePW:
                     ExecuteOption(ChangePassword);
                     DisplayMainMenu();
                     break;
-                case 2:
+                case (int)UserActions.Logout:
                     ExecuteOption(Logout);
                     return;
-                case 3:
+                case (int)UserActions.DeleteAccount:
                     ExecuteOption(DeleteAccount);
                     return;
                 default:

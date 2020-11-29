@@ -11,18 +11,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ASD_UserManager
 {
-    enum Actions
-    {
-        Login = 1,
-        Register,
-    }
-
     class Program
     {
         static IAccountRepository accountRepository;
         static ICreateAccountUseCase createAccountUC;
         static ILoginUseCase loginUC;
-
+        
         static LoggedInContext loggedInContext;
 
         static void Main(string[] args)
@@ -45,7 +39,7 @@ namespace ASD_UserManager
         static void DisplayMainMenu()
         {
             Console.WriteLine();
-            Console.WriteLine("Options: \n" + (int)Actions.Login + ". Login\n" + (int)Actions.Register + ". Register");
+            Console.WriteLine("Options: \n" + (int)UserActions.Login + ". Login\n" + (int)UserActions.Register + ". Register");
             Console.Write(":");
             int decision = Convert.ToInt32(Console.ReadLine());
             HandleSelection(decision);
@@ -55,10 +49,10 @@ namespace ASD_UserManager
         {
             switch (decision)
             {
-                case (int)Actions.Login:
+                case (int)UserActions.Login:
                     ExecuteOption(Login);
                     break;
-                case (int)Actions.Register:
+                case (int)UserActions.Register:
                     ExecuteOption(RegisterAccount);
                     break;
                 default:
