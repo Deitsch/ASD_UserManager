@@ -45,7 +45,7 @@ namespace ASD_UserManager
         static void DisplayMainMenu()
         {
             Console.WriteLine();
-            Console.WriteLine("Options: \n" + Actions.Login + ". Login\n" + Actions.Register + ". Register");
+            Console.WriteLine("Options: \n" + (int)Actions.Login + ". Login\n" + (int)Actions.Register + ". Register");
             Console.Write(":");
             int decision = Convert.ToInt32(Console.ReadLine());
             HandleSelection(decision);
