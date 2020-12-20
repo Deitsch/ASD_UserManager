@@ -1,5 +1,5 @@
 # ASD_UserManager
-Repo the second Advanced Software Development Exercise
+Repo for the second Advanced Software Development Exercise
 
 This project was created in Visual Studio (you may also use VSCode) with .NET 5
 
